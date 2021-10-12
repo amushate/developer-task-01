@@ -21,10 +21,14 @@ public class EpayResource {
 
 
     private ReportingProcessor reportingProcessor;
+    public EpayResource(ReportingProcessor reportingProcessor, EpayRequestProcessor epayRequestProcessor){
+        this.reportingProcessor = reportingProcessor;
+        this.epayRequestProcessor = epayRequestProcessor;
+    }
 
     @GetMapping(value = "enquiries/{partnerCode}/balances/{mobileNumber}",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public AirtimeBalanceResponse enquireAirtimeBalance( final String pCode, @PathVariable("mobileNumber") final String msisdn) {
+    public AirtimeBalanceResponse enquireAirtimeBalance( @PathVariable("partnerCode")final String pCode, @PathVariable("mobileNumber") final String msisdn) {
         return epayRequestProcessor.enquireAirtimeBalance(pCode, msisdn);
     }
 
