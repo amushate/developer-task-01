@@ -5,12 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.ws.Endpoint;
+import java.util.concurrent.Executors;
 
 /**
  * Created by tnyamakura on 17/3/2017.
  */
 public class IntelligentNetworkPublisher {
 
+    private int numberOfThreads = 5;
     private static final Logger LOGGER = LoggerFactory.getLogger(IntelligentNetworkPublisher.class);
 
     private IntelligentNetworkPublisher() {
@@ -20,7 +22,9 @@ public class IntelligentNetworkPublisher {
     public static void  main(String ... publishingParameters) {
         final String endpointUrl = "http://localhost:8888/intelligent-network-api/IntelligentNetworkService";
         LOGGER.info("Starting Intelligent network service....");
-        Endpoint.publish(endpointUrl, new IntelligentNetworkServiceImpl());
+        Endpoint endpoint = Endpoint.create(new IntelligentNetworkServiceImpl());
+        endpoint.setExecutor(Executors.newFixedThreadPool(5));
+        endpoint.publish(endpointUrl);
         LOGGER.info("Finished publishing WS");
     }
 }
