@@ -1,0 +1,6 @@
+/electronic-payments-business/target/**
+/electronic-payments-api/target/**
+/intelligent-network-api/target/**
+/electronic-payments-domain/target/**
+/electronic-payments-dao/target/**
+/econet-utils/target/**
